@@ -12,7 +12,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type dbCfg struct {
+type DbCfg struct {
 	DB *database.Queries
 }
 
@@ -24,7 +24,6 @@ func main() {
 	DB_URL := os.Getenv("DB_URL")
 	//databaseApi := DatabaseLoad(DB_URL) 
   log.Println(DB_URL)
-
 	r := chi.NewRouter()
   r.Get("/",func(w http.ResponseWriter, r *http.Request) {
    w.Write([]byte("Welcome")) 
@@ -32,7 +31,7 @@ func main() {
   http.ListenAndServe(":8080",r)
 }
 
-func DatabaseLoad(url string) dbCfg {
+func DatabaseLoad(url string)  DbCfg{
 	conn, err := sql.Open("postgres", url)
 	if err != nil {
 		log.Fatalln("DB conn error", err)
@@ -41,5 +40,5 @@ func DatabaseLoad(url string) dbCfg {
 		log.Fatalln("DB ping error", err)
 	}
 	log.Println("DB connected successfully")
-	return dbCfg{DB: database.New(conn)}
+	return DbCfg{DB: database.New(conn)}
 }
