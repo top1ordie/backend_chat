@@ -22,12 +22,13 @@ func main() {
 		log.Fatalln("Cannot read .env file", err)
 	}
 	DB_URL := os.Getenv("DB_URL")
-	//databaseApi := DatabaseLoad(DB_URL) 
+	databaseApi := DatabaseLoad(DB_URL) 
   log.Println(DB_URL)
 	r := chi.NewRouter()
   r.Get("/",func(w http.ResponseWriter, r *http.Request) {
    w.Write([]byte("Welcome")) 
   })
+  r.Post("/sign",databaseApi.SignUpHandler)
   http.ListenAndServe(":8080",r)
 }
 
