@@ -14,11 +14,29 @@ type Chat struct {
 	ChatName sql.NullString
 }
 
+type ImageMessage struct {
+	ID        int32
+	MessageID sql.NullInt32
+	DataUrl   sql.NullString
+}
+
+type MediaMessage struct {
+	ID        int32
+	MessageID sql.NullInt32
+	DataUrl   sql.NullString
+}
+
 type Message struct {
 	ID        int32
 	ChatID    sql.NullInt32
 	UserID    sql.NullInt32
 	CreatedAt time.Time
+}
+
+type TextMessage struct {
+	ID        int32
+	MessageID sql.NullInt32
+	Data      sql.NullString
 }
 
 type User struct {

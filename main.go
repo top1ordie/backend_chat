@@ -28,7 +28,8 @@ func main() {
   r.Get("/",func(w http.ResponseWriter, r *http.Request) {
    w.Write([]byte("Welcome")) 
   })
-  r.Post("/sign",databaseApi.SignUpHandler)
+  r.Post("/signUp",databaseApi.SignUpHandler)
+  r.Post("/signIn",databaseApi.Login_User)
   http.ListenAndServe(":8080",r)
 }
 
