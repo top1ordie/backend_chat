@@ -20,17 +20,21 @@ func (db *DbCfg) SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&user)
 	if err != nil {
 		http.Error(w, "BAD DATA", 400)
+    RespondWithJson(w,400,Error{"malformed data"})
 		return
 	}
 
 	hashpassword, err := HashPassword(user.Password)
 	if err != nil {
-		log.Fatalln("Hash password error :", err)
+		log.Println("Hash password error :", err)
+    RespondWithJson(w,500,Error{"server error cannot generate hash"})
 		return
 	}
 	tokenString, err := GenerateJWT(user.Nickname)
   if err!= nil {
-    log.Fatalln("JWT ",err)
+    log.Println("JWT ",err)
+    RespondWithJson(w,500,Error{"cannot generate token"})
+    return
   }
 	http.SetCookie(w, &http.Cookie{
 		Name:        "Authorization",
@@ -51,7 +55,8 @@ func (db *DbCfg) SignUpHandler(w http.ResponseWriter, r *http.Request) {
 
 	_, err = db.DB.CreateUserNoId(r.Context(), database.CreateUserNoIdParams{Nickname: user.Nickname, Password: hashpassword})
 	if err != nil {
-		log.Fatalln("Cannot create new user in DB", err)
+		log.Printf("Cannot create new user in DB %v", err)
+    RespondWithJson(w,400,Error{"db err"})
 		return
 	}
 	http.StatusText(200)

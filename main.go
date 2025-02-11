@@ -30,6 +30,7 @@ func main() {
   })
   r.Post("/signUp",databaseApi.SignUpHandler)
   r.Post("/signIn",databaseApi.Login_User)
+  r.Post("/createChat",databaseApi.MiddleWareAuth(databaseApi.CreateChat))
   http.ListenAndServe(":8080",r)
 }
 
