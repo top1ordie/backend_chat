@@ -7,16 +7,15 @@ package database
 
 import (
 	"context"
-	"database/sql"
 )
 
-const createChatOneToOne = `-- name: CreateChatOneToOne :one
+const createChat = `-- name: CreateChat :one
 INSERT INTO chats(chat_name) VALUES($1)
 RETURNING id, chat_name
 `
 
-func (q *Queries) CreateChatOneToOne(ctx context.Context, chatName sql.NullString) (Chat, error) {
-	row := q.db.QueryRowContext(ctx, createChatOneToOne, chatName)
+func (q *Queries) CreateChat(ctx context.Context, chatName string) (Chat, error) {
+	row := q.db.QueryRowContext(ctx, createChat, chatName)
 	var i Chat
 	err := row.Scan(&i.ID, &i.ChatName)
 	return i, err

@@ -11,7 +11,7 @@ import (
 
 type Chat struct {
 	ID       int32
-	ChatName sql.NullString
+	ChatName string
 }
 
 type ImageMessage struct {

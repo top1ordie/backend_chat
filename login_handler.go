@@ -14,20 +14,20 @@ func (db *DbCfg) Login_User(w http.ResponseWriter, r *http.Request) {
 	decode := json.NewDecoder(r.Body)
 	err := decode.Decode(&user)
 	if err != nil {
-		log.Fatalln("Decoder error: ", err)
+		log.Println("Decoder error: ", err)
 		return
 	}
 	rUser, err := db.DB.GetUserByNickName(r.Context(), user.Nickname)
 
 	checkPas := CheckPasswordHash(user.Password, rUser.Password)
 	if !checkPas {
-		log.Fatalln("wrong cred : ", err)
+		log.Println("wrong cred : ", err)
 		return
 	}
 
 	tokenString, err := GenerateJWT(user.Nickname)
 	if err != nil {
-		log.Fatalln("JWT", err)
+		log.Println("JWT", err)
 		return
 	}
 
@@ -48,9 +48,8 @@ func (db *DbCfg) Login_User(w http.ResponseWriter, r *http.Request) {
 		Unparsed:    []string{},
 	})
 
-  http.StatusText(200)
+	http.StatusText(200)
 	return
-
 }
 
 func CheckPasswordHash(password, hash string) bool {

@@ -10,7 +10,7 @@ type Error struct{
   Error string `json:"error"`
 }
 type Info struct{
-  Info string `json:"info"`
+  Message string `json:"message"`
 }
 
 func RespondWithJson(w http.ResponseWriter,code int,payload interface{}) {
