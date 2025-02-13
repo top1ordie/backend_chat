@@ -13,10 +13,27 @@ type Chat struct {
   ChatName string `json:"chat_name"`
 }
 
-type UserAddGroup struct {
+type User_Chat struct {
   IdUser int `json:"id_user"`
   IdChat int `json:"id_chat"`
 }
+
+type Text_Message struct {
+  Id int `json:"id"`
+  MessageId int `json:"message_id"`
+  Data string `json:"data"`
+}
+type Media_Message struct {
+  Id int `json:"id"`
+  MessageId int `json:"message_id"`
+  Data string `json:"data_url"`
+}
+
+type Message struct {
+  MessageArr []Text_Message `json:"message_arr"`
+  User_Chat User_Chat `json:"chat_user"`
+}
+
 func DbUserToUser(dbUser database.User) User{
   return User{
   	Id:       int(dbUser.ID),

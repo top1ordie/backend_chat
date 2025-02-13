@@ -1,0 +1,6 @@
+-- +goose Up 
+ALTER TABLE messages ALTER COLUMN chat_id SET NOT NULL;
+ALTER TABLE messages ALTER COLUMN user_id SET NOT NULL;
+-- +goose Down
+ALTER TABLE messages ALTER COLUMN chat_id DROP NOT NULL;
+ALTER TABLE messages ALTER COLUMN user_id DROP NOT NULL;

@@ -5,7 +5,6 @@
 package database
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -16,27 +15,27 @@ type Chat struct {
 
 type ImageMessage struct {
 	ID        int32
-	MessageID sql.NullInt32
-	DataUrl   sql.NullString
+	MessageID int32
+	DataUrl   string
 }
 
 type MediaMessage struct {
 	ID        int32
-	MessageID sql.NullInt32
-	DataUrl   sql.NullString
+	MessageID int32
+	DataUrl   string
 }
 
 type Message struct {
 	ID        int32
-	ChatID    sql.NullInt32
-	UserID    sql.NullInt32
+	ChatID    int32
+	UserID    int32
 	CreatedAt time.Time
 }
 
 type TextMessage struct {
 	ID        int32
-	MessageID sql.NullInt32
-	Data      sql.NullString
+	MessageID int32
+	Data      string
 }
 
 type User struct {
